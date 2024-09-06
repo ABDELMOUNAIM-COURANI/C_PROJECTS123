@@ -1,0 +1,129 @@
+# README Guide for Creating a Static Library (`libft.a`)
+
+## Overview
+
+This guide explains how to create a static library named `libft.a` and a shell script to automate the process. It includes details on the source files, header file, and the steps to compile and archive the library. 
+
+### Exercise Requirements
+
+You need to:
+1. Create a static library called `libft.a`.
+
+2. Implement the following functions:
+   - `void ft_putchar(char c);`
+   - `void ft_swap(int *a, int *b);`
+   - `void ft_putstr(char *str);`
+   - `int ft_strlen(char *str);`
+   - `int ft_strcmp(char *s1, char *s2);`
+   
+3. Write a shell script called `libft_creator.sh` to compile the source files and create the library.
+
+### Source Files
+
+The library consists of the following C source files:
+
+- **`ft_putchar.c`**: Implements the `ft_putchar` function.
+- **`ft_swap.c`**: Implements the `ft_swap` function.
+- **`ft_putstr.c`**: Implements the `ft_putstr` function.
+- **`ft_strlen.c`**: Implements the `ft_strlen` function.
+- **`ft_strcmp.c`**: Implements the `ft_strcmp` function.
+
+### Header File (OPTIONAL)
+
+**`libft.h`**: Contains the function prototypes for the library functions.
+
+```
+#ifndef LIBFT_H
+#define LIBFT_H
+
+void ft_putchar(char c);
+void ft_swap(int *a, int *b);
+void ft_putstr(char *str);
+int ft_strlen(char *str);
+int ft_strcmp(char *s1, char *s2);
+
+#endif
+```
+
+### Compilation Steps
+
+1. **Compile Source Files**:
+   - Use the `gcc -c` command to compile each source file into an object file (`.o`).
+
+   ```
+   gcc -c ft_putchar.c ft_putstr.c ft_strcmp.c ft_strlen.c ft_swap.c
+   ```
+
+2. **Create the Static Library**:
+   - Use the `ar` command to create an archive file (`libft.a`) from the object files.
+
+   ```
+   ar rcs libft.a ft_putchar.o ft_putstr.o ft_strcmp.o ft_strlen.o ft_swap.o
+   ```
+
+3. **Optional: Clean Up Object Files**:
+   - Remove the object files if you do not need them.
+
+   ```
+   rm *.o
+   ```
+
+### Shell Script
+
+The following shell script automates the compilation and creation of the static library:
+
+**File: `libft_creator.sh`**
+
+```
+#!/bin/bash
+
+# Compile source files into object files
+gcc -c ft_putchar.c ft_putstr.c ft_strcmp.c ft_strlen.c ft_swap.c
+
+# Create a static library from the object files
+ar rcs libft.a ft_putchar.o ft_putstr.o ft_strcmp.o ft_strlen.o ft_swap.o
+
+# Optional: Clean up object files
+rm *.o
+```
+
+**Make the Script Executable:**
+
+```
+chmod +x libft_creator.sh
+```
+
+**Run the Script:**
+
+```
+./libft_creator.sh
+```
+
+### Definitions
+
+1. **Static Library (`.a` file)**:
+   - An archive of object files that can be linked into a program. It is used to bundle functions and routines that can be used by other programs during the linking phase.
+
+2. **Object File (`.o` file)**:
+   - A compiled version of a source file. Object files contain machine code but are not yet linked into a complete executable. They are used as input to the linker.
+
+3. **Archiver (`ar` command)**:
+   - A utility to create, modify, and extract from archives. It is used to create static libraries by packaging object files together.
+
+4. **Compiler (`gcc` command)**:
+   - A tool that translates source code written in C into object code. The `-c` flag tells the compiler to compile source files into object files without linking.
+
+5. **Linker**:
+   - A tool that combines object files into an executable or library. It resolves references between object files and produces the final executable or library file.
+
+### Usage
+
+- To compile and create the static library, run the shell script as follows:
+
+  ```
+  ./libft_creator.sh
+  ```
+
+- The resulting `libft.a` file will contain the compiled functions from the source files.
+
+---
