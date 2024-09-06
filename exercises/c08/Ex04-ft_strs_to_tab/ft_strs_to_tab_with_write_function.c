@@ -1,4 +1,5 @@
 #include "ft_stock_str.h"
+#include <unistd.h>
 #include <stdlib.h>
 
 char *ft_strdup(char *src){
@@ -119,4 +120,28 @@ struct s_stock_str *ft_strs_to_tab(int ac, char **av){
 	}
 
 	return arr;
+}
+
+int main(void){
+
+	int ac;
+	int i;
+
+	i = 0;
+	
+	char *av[] = {"summer", "winter", "autumn", "spring"};
+	ac = sizeof(av)/sizeof(av[0]);
+
+	struct s_stock_str *result;
+	
+	result = ft_strs_to_tab(ac, av);
+
+	while (i < ac){
+
+		write(1, result[i].str, result[i].size);
+		i++;
+
+	}
+	free(result);
+	return 0;
 }

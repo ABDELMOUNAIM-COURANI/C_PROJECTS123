@@ -1,4 +1,18 @@
+#include <unistd.h>
 #include <stdlib.h>
+
+void ft_putstr(char *str){
+	
+	int i;
+
+	i = 0;
+	
+	while (str[i] != '\0') {
+		
+		write(1, &str[i], 1);
+		i++;
+	}
+}
 
 int is_sep(char c, char *charset) {
 	
@@ -127,4 +141,33 @@ char **ft_split(char *str, char *charset) {
 	
 	arr[j] = NULL;
 	return arr;
+}
+
+int main(void) {
+	
+	char *str;
+	char *charset;
+	char **r;
+	int i;
+	
+	str = "apple,banana/tomato;melon'orange";
+        charset = "',;|\\?/";
+        r = ft_split(str, charset);
+
+	if (r) {
+		
+		i = 0;
+		
+		while (r[i] != NULL) {
+			
+			ft_putstr(r[i]);
+			write(1, "\n", 1);
+			i++;
+		
+		}
+		
+		free(r);
+	}
+	
+	return 0;
 }
